@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-deployment
+  namespace: complexk8s
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: server
+  template:
+    metadata:
+      labels:
+        app: server
+    spec:
+      containers:
+      - name: multi-server 
+        image: 149083378091.dkr.ecr.us-east-1.amazonaws.com/multi-server
+        imagePullPolicy: "Always"     
+        resources:
+          limits:
+            memory: "64Mi"
+            cpu: "50m"
+        ports:
+        - containerPort: 5000
+        env:
+          - name: REDIS_HOST
+            value: redis-cluster-ip-service
+          - name: REDIS_PORT
+            value: '6379'
+          - name: PGUSER
+            value: postgres
+          - name: PGHOST
+            value: postgres-cluster-ip-service
+          - name: PGDATABASE
+            value: postgres
+          - name: PGPASSWORD
+            valueFrom:
+                secretKeyRef:
+                  name: pgpassword #<secret_name>
+                  key: PGPASSWORD #key value of secret
+          - name: PGPORT
+            value: '5432'
+            

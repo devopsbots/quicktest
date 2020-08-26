@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker-deployment
+  namespace: complexk8s
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      containers:
+      - name: multi-worker
+        image: 149083378091.dkr.ecr.us-east-1.amazonaws.com/multi-worker
+        imagePullPolicy: "Always"
+        env:
+          - name: REDIS_HOST
+            value: redis-cluster-ip-service
+          - name: REDIS_PORT
+            value: '6379'
+        resources:
+          limits:
+            memory: "64Mi"
+            cpu: "50m"

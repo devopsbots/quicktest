@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+  namespace: complexk8s
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: multi-client
+        image: 149083378091.dkr.ecr.us-east-1.amazonaws.com/multi-client             
+        imagePullPolicy: "Always"
+       ## terminationGracePeriodSeconds: 30 (add Lifecycle)
+       ## imagePullPolicy: "IfNotPresent"
+        resources:
+          limits:
+            memory: "64Mi"
+            cpu: "50m"
+        ports:
+        - containerPort: 3000
