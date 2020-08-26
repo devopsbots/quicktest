@@ -14,7 +14,7 @@ before_script:
    - export PATH=$PWD/:$PATH
    - apt-get update && apt-get -y install jq python3-pip python3-dev && pip3 install --upgrade awscli
    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-
+   
 script:
   - docker run -e CI=true jzhao5/react-test npm run test
 
