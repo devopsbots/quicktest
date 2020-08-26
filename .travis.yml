@@ -15,7 +15,7 @@ before_script:
    ##- sudo apt-get update && apt-get -y install jq python3-pip python3-dev && pip3 install --upgrade awscli
    - sudo apt-get update
    - sudo apt-get -y install jq python3-pip python3-dev
-   - sudo apt-get -y install pip3 
+   ##- sudo apt-get -y install pip3 
    - sudo apt-get install awscli
    - echo "aws --version"
    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
