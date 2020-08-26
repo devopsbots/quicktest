@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: client-deployment
-  namespace: complexk8s
+  namespace: multi-k8s
 spec:
   replicas: 3
   strategy:
@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: multi-client
-        image: 149083378091.dkr.ecr.us-east-1.amazonaws.com/multi-client             
+        image: jzhao5/multi-client2             
         imagePullPolicy: "Always"
        ## terminationGracePeriodSeconds: 30 (add Lifecycle)
        ## imagePullPolicy: "IfNotPresent"

@@ -2,6 +2,6 @@ kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
   name: aws-ebs
-  namespace: complexk8s
+  namespace: multi-k8s
 provisioner: ebs.csi.aws.com
 volumeBindingMode: WaitForFirstConsumer
