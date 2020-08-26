@@ -33,8 +33,8 @@ after_script:
   - docker push jzhao5/multi-worker2:$SHA
   - export $AWS_ACCESS_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
   - export $AWS_SECRET_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
-  - aws eks update-kubeconfig --name sandbox
-  - kubectl apply -f k8s --namespace=multi-k8s
+  - aws eks --region us-east-1 update-kubeconfig --name sandbox
+  - kubectl apply -f k8s
 
 #deploy:
   #provider: script
