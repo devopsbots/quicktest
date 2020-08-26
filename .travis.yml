@@ -26,18 +26,18 @@ after_script:
   #- docker build -t jzhao5/multi-client2 ./client
   #- docker build -t jzhao5/multi-server2 ./server
   #- docker build -t jzhao5/multi-worker2 ./worker
-  - docker build -t jzhao5/multi-client2:latest -f ./client/Dockerfile ./client #jzhao5/multi-client2:$SHA
-  - docker build -t jzhao5/multi-server2:latest -f ./server/Dockerfile ./server #jzhao5/multi-server2:$SHA
-  - docker build -t jzhao5/multi-worker2:latest -f ./worker/Dockerfile ./worker #jzhao5/multi-worker2:$SHA 
+  - docker build -t jzhao5/multi-client2:$SHA -f ./client/Dockerfile ./client #jzhao5/multi-client2:$SHA
+  - docker build -t jzhao5/multi-server2:$SHA -f ./server/Dockerfile ./server #jzhao5/multi-server2:$SHA
+  - docker build -t jzhao5/multi-worker2:$SHA -f ./worker/Dockerfile ./worker #jzhao5/multi-worker2:$SHA 
   #- docker push jzhao5/multi-client2
   #- docker push jzhao5/multi-server2
   #- docker push jzhao5/multi-worker2
-  - docker push jzhao5/multi-client2:latest
-  - docker push jzhao5/multi-server2:latest
-  - docker push jzhao5/multi-worker2:latest
-  #- docker push jzhao5/multi-client2:$SHA
-  #- docker push jzhao5/multi-server2:$SHA
-  #- docker push jzhao5/multi-worker2:$SHA
+  #- docker push jzhao5/multi-client2:latest
+  #- docker push jzhao5/multi-server2:latest
+  #- docker push jzhao5/multi-worker2:latest
+  - docker push jzhao5/multi-client2:$SHA
+  - docker push jzhao5/multi-server2:$SHA
+  - docker push jzhao5/multi-worker2:$SHA
   - access_key_id=$AWS_ACCESS_KEY
   - secret_access_key=$AWS_SECRET_KEY
   - export access_key_id="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
