@@ -15,7 +15,7 @@ before_script:
    - sudo apt-get update
    - sudo apt-get -y install python3-pip
    - sudo apt-get -y install awscli
-   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+   - export KUBECONFIG=$HOME/.kube/config
 
 script:
   - docker build -t jzhao5/react-test -f ./client/Dockerfile.dev ./client
@@ -25,14 +25,17 @@ after_script:
   - docker build -t jzhao5/multi-client3:latest jzhao5/multi-client2:$SHA -f ./client/Dockerfile ./client
   - docker build -t jzhao5/multi-server2:latest jzhao5/multi-server2:$SHA -f ./server/Dockerfile ./server
   - docker build -t jzhao5/multi-worker2:latest jzhao5/multi-worker2:$SHA -f ./worker/Dockerfile ./worker
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push jzhao5/multi-client2:latest
   - docker push jzhao5/multi-server2:latest
   - docker push jzhao5/multi-worker2:latest
   - docker push jzhao5/multi-client2:$SHA
   - docker push jzhao5/multi-server2:$SHA
   - docker push jzhao5/multi-worker2:$SHA
-  - export $AWS_ACCESS_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
-  - export $AWS_SECRET_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
+  - access_key_id=$AWS_ACCESS_KEY
+  - secret_access_key=$AWS_SECRET_KEY
+  - export access_key_id="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
+  - export secret_access_key="$(echo ${CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
   - aws eks --region us-east-1 update-kubeconfig --name sandbox
   - kubectl apply -f k8s
 
