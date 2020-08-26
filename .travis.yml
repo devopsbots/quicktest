@@ -13,11 +13,12 @@ before_script:
    - chmod +x ./kubectl ./aws-iam-authenticator
    - export PATH=$PWD/:$PATH
    ##- sudo apt-get update && apt-get -y install jq python3-pip python3-dev && pip3 install --upgrade awscli
-   - sudo apt-get update
-   - sudo apt-get -y install jq python3-pip python3-dev
+   - sudo apt-get update && apt-get -y install python3-pip && apt-get -y install awscli
+   ##- sudo apt-get install python3-pip
+   ##- sudo apt-get -y install jq python3-pip python3-dev
    ##- sudo apt-get -y install pip3 
-   - sudo apt-get install awscli
-   - echo "aws --version"
+   ##- sudo apt-get install awscli
+   - sudo aws --version
    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 script:
