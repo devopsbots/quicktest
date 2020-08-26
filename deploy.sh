@@ -10,8 +10,8 @@ docker push jzhao5/multi-client2:$SHA
 docker push jzhao5/multi-server2:$SHA
 docker push jzhao5/multi-worker2:$SHA
 
-export $AWS_ACCESS_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
-export $AWS_SECRET_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
+##export $AWS_ACCESS_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
+##export $AWS_SECRET_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
 ##export AWS_ACCESS_KEY_ID="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
 ##export AWS_SECRET_ACCESS_KEY="$(echo ${CREDENTIALS} | jq -r '.Credentials.SecretAccessKey')"
 ##export AWS_SESSION_TOKEN="$(echo ${CREDENTIALS} | jq -r '.Credentials.SessionToken')"
