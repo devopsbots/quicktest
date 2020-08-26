@@ -16,6 +16,7 @@ before_script:
    - sudo apt-get -y install python3-pip
    - sudo apt-get -y install awscli
    - export KUBECONFIG=$HOME/.kube/config
+   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
 script:
   - docker build -t jzhao5/react-test -f ./client/Dockerfile.dev ./client
@@ -28,16 +29,15 @@ after_script:
   #- docker build -t jzhao5/multi-client2:latest jzhao5/multi-client2:$SHA -f ./client/Dockerfile ./client
   #- docker build -t jzhao5/multi-server2:latest jzhao5/multi-server2:$SHA -f ./server/Dockerfile ./server
   #- docker build -t jzhao5/multi-worker2:latest jzhao5/multi-worker2:$SHA -f ./worker/Dockerfile ./worker
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push jzhao5/multi-client2
-  - docker push jzhao5/multi-server2
-  - docker push jzhao5/multi-worker2
+  #- docker push jzhao5/multi-client2
+  #- docker push jzhao5/multi-server2
+  #- docker push jzhao5/multi-worker2
   #- docker push jzhao5/multi-client2:latest
   #- docker push jzhao5/multi-server2:latest
   #- docker push jzhao5/multi-worker2:latest
-  #- docker push jzhao5/multi-client2:$SHA
-  #- docker push jzhao5/multi-server2:$SHA
-  #- docker push jzhao5/multi-worker2:$SHA
+  - docker push jzhao5/multi-client2:$SHA
+  - docker push jzhao5/multi-server2:$SHA
+  - docker push jzhao5/multi-worker2:$SHA
   - access_key_id=$AWS_ACCESS_KEY
   - secret_access_key=$AWS_SECRET_KEY
   - export access_key_id="$(echo ${CREDENTIALS} | jq -r '.Credentials.AccessKeyId')"
